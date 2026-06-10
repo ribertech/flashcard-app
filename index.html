@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, viewport-fit=cover">
@@ -458,9 +458,9 @@ a{color:var(--accent);}
 <body>
 <div id="app">
   <header class="topbar">
-    <button id="btnBack" class="icon-btn hidden" aria-label="Voltar">←</button>
+    <button id="btnBack" class="icon-btn hidden" aria-label="Back">←</button>
     <h1 id="pageTitle">Flashcards</h1>
-    <button id="btnSettings" class="icon-btn" aria-label="Configurações">⚙</button>
+    <button id="btnSettings" class="icon-btn" aria-label="Settings">⚙</button>
   </header>
 
   <main id="main">
@@ -468,7 +468,7 @@ a{color:var(--accent);}
     <!-- ===================== HOME / DECK LIST ===================== -->
     <section id="view-decks" class="view active">
       <div class="stats-bar" id="statsBar"></div>
-      <div class="section-title">Seus baralhos</div>
+      <div class="section-title">Your decks</div>
       <div class="deck-list" id="deckList"></div>
     </section>
 
@@ -478,32 +478,32 @@ a{color:var(--accent);}
         <h2 id="deckTitle">Deck</h2>
         <div class="deck-meta" id="deckMeta"></div>
         <div class="deck-header-actions">
-          <button class="btn btn-primary" id="btnStudyDeck">▶ Estudar</button>
-          <button class="btn btn-secondary" id="btnRenameDeck">✎ Renomear</button>
-          <button class="btn btn-danger btn-icon-only" id="btnDeleteDeck" aria-label="Excluir baralho">🗑</button>
+          <button class="btn btn-primary" id="btnStudyDeck">▶ Study</button>
+          <button class="btn btn-secondary" id="btnRenameDeck">✎ Rename</button>
+          <button class="btn btn-danger btn-icon-only" id="btnDeleteDeck" aria-label="Delete deck">🗑</button>
         </div>
       </div>
-      <div class="section-title">Cartões</div>
+      <div class="section-title">Cards</div>
       <div class="card-list" id="cardList"></div>
     </section>
 
     <!-- ===================== CARD EDITOR ===================== -->
     <section id="view-editor" class="view">
       <div class="editor-field">
-        <div class="field-label">Frente — Português</div>
-        <div class="editable" id="editFront" contenteditable="true" data-placeholder="Digite a frase em português..."></div>
+        <div class="field-label">Front — Portuguese</div>
+        <div class="editable" id="editFront" contenteditable="true" data-placeholder="Type the phrase in Portuguese..."></div>
         <div class="field-tools" id="toolsFront"></div>
       </div>
       <div class="editor-field">
-        <div class="field-label">Verso — Inglês</div>
+        <div class="field-label">Back — English</div>
         <div class="editable" id="editBack" contenteditable="true" data-placeholder="Type the phrase in English..."></div>
         <div class="field-tools" id="toolsBack"></div>
       </div>
       <div class="editor-actions">
-        <button class="btn btn-secondary" id="btnCancelEdit">Cancelar</button>
-        <button class="btn btn-primary" id="btnSaveCard">Salvar cartão</button>
+        <button class="btn btn-secondary" id="btnCancelEdit">Cancel</button>
+        <button class="btn btn-primary" id="btnSaveCard">Save card</button>
       </div>
-      <button class="btn btn-danger btn-block hidden" id="btnDeleteCard">🗑 Excluir cartão</button>
+      <button class="btn btn-danger btn-block hidden" id="btnDeleteCard">🗑 Delete card</button>
     </section>
 
     <!-- ===================== STUDY SESSION ===================== -->
@@ -517,22 +517,22 @@ a{color:var(--accent);}
           <div class="flashcard" id="flashcard">
             <div class="flashcard-inner" id="flashcardInner">
               <div class="flashcard-face front">
-                <span class="face-label">Português</span>
+                <span class="face-label">Portuguese</span>
                 <div class="face-text" id="studyFrontText"></div>
-                <span class="tap-hint">Toque para virar</span>
+                <span class="tap-hint">Tap to flip</span>
               </div>
               <div class="flashcard-face back">
                 <span class="face-label">English</span>
                 <div class="face-text" id="studyBackText"></div>
                 <div class="audio-row">
-                  <button class="audio-btn" id="btnPlayAudio" aria-label="Ouvir">🔊</button>
+                  <button class="audio-btn" id="btnPlayAudio" aria-label="Listen">🔊</button>
                   <select class="speed-select" id="studySpeed">
                     <option value="0.75">0.75x</option>
                     <option value="1" selected>1.0x</option>
                     <option value="1.25">1.25x</option>
                   </select>
                 </div>
-                <span class="tap-hint">Toque para virar</span>
+                <span class="tap-hint">Tap to flip</span>
               </div>
             </div>
           </div>
@@ -546,18 +546,18 @@ a{color:var(--accent);}
       </div>
       <div class="session-done hidden" id="studyDone">
         <div class="icon">🎉</div>
-        <h2>Tudo em dia!</h2>
-        <p>Você revisou todos os cartões pendentes deste baralho hoje.</p>
-        <button class="btn btn-primary" id="btnStudyDoneBack">Voltar ao baralho</button>
+        <h2>All caught up!</h2>
+        <p>You've reviewed all the cards due for this deck today.</p>
+        <button class="btn btn-primary" id="btnStudyDoneBack">Back to deck</button>
       </div>
     </section>
 
     <!-- ===================== SETTINGS ===================== -->
     <section id="view-settings" class="view">
-      <div class="section-title">Aparência</div>
+      <div class="section-title">Appearance</div>
       <div class="settings-group">
         <div class="settings-row">
-          <div class="row-text"><h4>Tema escuro</h4><p>Alternar entre claro e escuro</p></div>
+          <div class="row-text"><h4>Dark theme</h4><p>Switch between light and dark</p></div>
           <label class="toggle">
             <input type="checkbox" id="themeToggle">
             <span class="slider"></span>
@@ -565,33 +565,33 @@ a{color:var(--accent);}
         </div>
       </div>
 
-      <div class="section-title">Áudio</div>
+      <div class="section-title">Audio</div>
       <div class="settings-group">
         <div class="settings-section">
           <div>
-            <div class="row-text" style="margin-bottom:8px;"><h4>Velocidade padrão</h4><p>Velocidade de reprodução do áudio</p></div>
+            <div class="row-text" style="margin-bottom:8px;"><h4>Default speed</h4><p>Audio playback speed</p></div>
             <div class="segmented" id="speedSegment">
               <button data-speed="0.75">0.75x</button>
               <button data-speed="1" class="active">1.0x</button>
               <button data-speed="1.25">1.25x</button>
             </div>
           </div>
-          <button class="btn btn-secondary btn-block" id="btnTestAudio">🔊 Testar áudio</button>
+          <button class="btn btn-secondary btn-block" id="btnTestAudio">🔊 Test audio</button>
         </div>
       </div>
 
-      <div class="section-title">Dados</div>
+      <div class="section-title">Data</div>
       <div class="settings-group">
         <div class="settings-section">
-          <button class="btn btn-secondary btn-block" id="btnExportData">⬇ Exportar dados</button>
-          <button class="btn btn-secondary btn-block" id="btnImportData">⬆ Importar dados</button>
-          <button class="btn btn-danger btn-block" id="btnResetData">Apagar todos os dados</button>
+          <button class="btn btn-secondary btn-block" id="btnExportData">⬇ Export data</button>
+          <button class="btn btn-secondary btn-block" id="btnImportData">⬆ Import data</button>
+          <button class="btn btn-danger btn-block" id="btnResetData">Delete all data</button>
         </div>
       </div>
     </section>
 
   </main>
-  <button class="fab hidden" id="fab" aria-label="Adicionar">+</button>
+  <button class="fab hidden" id="fab" aria-label="Add">+</button>
 </div>
 
 <!-- ===================== DIALOGS ===================== -->
@@ -833,9 +833,9 @@ var nav = {
 const VIEW_TITLES = {
   decks: () => 'Flashcards',
   deck: () => (getDeck(nav.context.deckId) || {}).name || 'Deck',
-  editor: () => nav.context.cardId ? 'Editar cartão' : 'Novo cartão',
-  study: () => (getDeck(nav.context.deckId) || {}).name || 'Estudo',
-  settings: () => 'Configurações'
+  editor: () => nav.context.cardId ? 'Edit card' : 'New card',
+  study: () => (getDeck(nav.context.deckId) || {}).name || 'Study',
+  settings: () => 'Settings'
 };
 
 function navigateTo(viewName, context, opts){
@@ -891,11 +891,11 @@ function renderDecksView(){
   const streak = getStreak();
 
   document.getElementById('statsBar').innerHTML = `
-    <div class="stat"><div class="num">${streak}${streak > 0 ? ' <span class="streak-flame">\u{1F525}</span>' : ''}</div><div class="lbl">Sequência</div></div>
+    <div class="stat"><div class="num">${streak}${streak > 0 ? ' <span class="streak-flame">\u{1F525}</span>' : ''}</div><div class="lbl">Streak</div></div>
     <div class="divider"></div>
-    <div class="stat"><div class="num">${studiedToday}</div><div class="lbl">Hoje</div></div>
+    <div class="stat"><div class="num">${studiedToday}</div><div class="lbl">Today</div></div>
     <div class="divider"></div>
-    <div class="stat"><div class="num">${totalDue}</div><div class="lbl">A revisar</div></div>
+    <div class="stat"><div class="num">${totalDue}</div><div class="lbl">Due</div></div>
   `;
 
   const list = document.getElementById('deckList');
@@ -903,8 +903,8 @@ function renderDecksView(){
     list.innerHTML = `
       <div class="empty-state">
         <div class="icon">\u{1F5C2}️</div>
-        <h3>Nenhum baralho ainda</h3>
-        <p>Toque no botão "+" para criar seu primeiro baralho.</p>
+        <h3>No decks yet</h3>
+        <p>Tap the "+" button to create your first deck.</p>
       </div>`;
   } else {
     list.innerHTML = DATA.decks.map(deck => {
@@ -914,11 +914,11 @@ function renderDecksView(){
       <div class="deck-card" data-deck-id="${deck.id}">
         <div class="deck-info">
           <h3>${escapeHtml(deck.name)}</h3>
-          <p>${cardCount} cartão${cardCount === 1 ? '' : 's'}</p>
+          <p>${cardCount} card${cardCount === 1 ? '' : 's'}</p>
         </div>
         <div class="deck-due">
           <span class="due-badge ${due === 0 ? 'zero' : ''}">${due}</span>
-          <span class="due-label">para hoje</span>
+          <span class="due-label">due today</span>
         </div>
       </div>`;
     }).join('');
@@ -938,10 +938,10 @@ function renderDecksView(){
 
 function promptCreateDeck(){
   showDialog({
-    title: 'Novo baralho',
-    inputPlaceholder: 'Nome do baralho (ex: Viagem)',
+    title: 'New deck',
+    inputPlaceholder: 'Deck name (e.g. Travel)',
     inputValue: '',
-    confirmText: 'Criar',
+    confirmText: 'Create',
     onConfirm: (value) => {
       if(!value || !value.trim()) return;
       const deck = createDeck(value);
@@ -962,7 +962,7 @@ function renderDeckView(){
 
   document.getElementById('deckTitle').textContent = deck.name;
   document.getElementById('deckMeta').textContent =
-    `${cards.length} cartão${cards.length === 1 ? '' : 's'} · ${due} para hoje`;
+    `${cards.length} card${cards.length === 1 ? '' : 's'} · ${due} due today`;
 
   document.getElementById('btnStudyDeck').disabled = due === 0;
 
@@ -970,15 +970,15 @@ function renderDeckView(){
   if(cards.length === 0){
     list.innerHTML = `
       <div class="empty-state">
-        <div class="icon">\u{1F0CF}</div>
-        <h3>Nenhum cartão</h3>
-        <p>Toque no botão "+" para adicionar seu primeiro cartão.</p>
+        <div class="icon">📇</div>
+        <h3>No cards</h3>
+        <p>Tap the "+" button to add your first card.</p>
       </div>`;
   } else {
     const today = todayStr();
     list.innerHTML = cards.map(card => {
       const isDue = !card.due || card.due <= today;
-      const dueLabel = isDue ? 'Hoje' : formatRelativeDate(card.due);
+      const dueLabel = isDue ? 'Today' : formatRelativeDate(card.due);
       return `
       <div class="card-row" data-card-id="${card.id}">
         <div class="card-text">
@@ -987,8 +987,8 @@ function renderDeckView(){
         </div>
         <span class="due-tag ${isDue ? 'due-now' : ''}">${dueLabel}</span>
         <div class="card-actions">
-          <button class="btn-edit" aria-label="Editar">✎</button>
-          <button class="btn-delete" aria-label="Excluir">🗑</button>
+          <button class="btn-edit" aria-label="Edit">✎</button>
+          <button class="btn-delete" aria-label="Delete">🗑</button>
         </div>
       </div>`;
     }).join('');
@@ -1002,14 +1002,14 @@ function renderDeckView(){
       row.querySelector('.btn-delete').addEventListener('click', (e) => {
         e.stopPropagation();
         confirmDialog({
-          title: 'Excluir cartão?',
-          message: 'Esta ação não pode ser desfeita.',
-          confirmText: 'Excluir',
+          title: 'Delete card?',
+          message: 'This action cannot be undone.',
+          confirmText: 'Delete',
           danger: true,
           onConfirm: () => {
             deleteCard(cardId);
             renderDeckView();
-            showToast('Cartão excluído');
+            showToast('Card deleted');
           }
         });
       });
@@ -1028,11 +1028,11 @@ function renderDeckView(){
 function formatRelativeDate(dateStr){
   const today = todayStr();
   const diff = Math.round((new Date(dateStr+'T00:00:00') - new Date(today+'T00:00:00')) / 86400000);
-  if(diff <= 0) return 'Hoje';
-  if(diff === 1) return 'Amanhã';
+  if(diff <= 0) return 'Today';
+  if(diff === 1) return 'Tomorrow';
   if(diff < 30) return `${diff}d`;
   if(diff < 365) return `${Math.round(diff/30)}mo`;
-  return `${(diff/365).toFixed(1)}a`;
+  return `${(diff/365).toFixed(1)}y`;
 }
 
 /* ===================================================================
@@ -1107,11 +1107,11 @@ function getSelectionRange(root){
 }
 
 function highlightToolsHTML(withAudio){
-  let html = HL_COLORS.map(c => `<button class="hl-swatch" data-color="${c}" title="Destacar"></button>`).join('');
-  html += `<button class="hl-swatch none" data-color="" title="Remover destaque">✕</button>`;
+  let html = HL_COLORS.map(c => `<button class="hl-swatch" data-color="${c}" title="Highlight"></button>`).join('');
+  html += `<button class="hl-swatch none" data-color="" title="Remove highlight">✕</button>`;
   html += `<div class="tools-spacer"></div>`;
   if(withAudio){
-    html += `<button class="btn btn-secondary" id="btnPreviewAudio">🔊 Ouvir</button>`;
+    html += `<button class="btn btn-secondary" id="btnPreviewAudio">🔊 Listen</button>`;
   }
   return html;
 }
@@ -1122,7 +1122,7 @@ function setupHighlightTools(toolsId, editableEl, textKey, hlKey){
     btn.addEventListener('click', () => {
       const range = getSelectionRange(editableEl);
       if(!range){
-        showToast('Selecione um texto para destacar');
+        showToast('Select some text to highlight');
         return;
       }
       const color = btn.dataset.color || null;
@@ -1188,10 +1188,10 @@ function renderEditorView(){
       updateCard(editorState.cardId, {
         front, back, frontHL: editorState.frontHL, backHL: editorState.backHL
       });
-      showToast('Cartão atualizado');
+      showToast('Card updated');
     } else {
       createCard(editorState.deckId, front, back, editorState.frontHL, editorState.backHL);
-      showToast('Cartão criado');
+      showToast('Card created');
     }
     navigateBack();
   };
@@ -1201,13 +1201,13 @@ function renderEditorView(){
     delBtn.classList.remove('hidden');
     delBtn.onclick = () => {
       confirmDialog({
-        title: 'Excluir cartão?',
-        message: 'Esta ação não pode ser desfeita.',
-        confirmText: 'Excluir',
+        title: 'Delete card?',
+        message: 'This action cannot be undone.',
+        confirmText: 'Delete',
         danger: true,
         onConfirm: () => {
           deleteCard(editorState.cardId);
-          showToast('Cartão excluído');
+          showToast('Card deleted');
           navigateBack();
         }
       });
@@ -1326,7 +1326,7 @@ function playTTS(text, btnEl, speed){
     return;
   }
   if(!('speechSynthesis' in window)){
-    showToast('Síntese de voz não suportada neste navegador');
+    showToast('Speech synthesis not supported in this browser');
     return;
   }
   speed = speed || DATA.settings.audioSpeed || 1;
@@ -1371,7 +1371,7 @@ function exportData(){
   a.click();
   document.body.removeChild(a);
   URL.revokeObjectURL(url);
-  showToast('Dados exportados');
+  showToast('Data exported');
 }
 
 function importDataFromFile(file){
@@ -1380,7 +1380,7 @@ function importDataFromFile(file){
     try{
       const parsed = JSON.parse(reader.result);
       if(!parsed || !Array.isArray(parsed.decks) || !Array.isArray(parsed.cards)){
-        throw new Error('Arquivo inválido');
+        throw new Error('Invalid file');
       }
       DATA = Object.assign(structuredCloneSafe(DEFAULT_DATA), parsed, {
         settings: Object.assign({}, DEFAULT_DATA.settings, parsed.settings || {}),
@@ -1390,10 +1390,10 @@ function importDataFromFile(file){
       applyTheme();
       studySession = null;
       navigateTo('decks', {}, { replace: true });
-      showToast('Dados importados com sucesso');
+      showToast('Data imported successfully');
     }catch(err){
       console.error(err);
-      showToast('Não foi possível importar este arquivo');
+      showToast('Could not import this file');
     }
   };
   reader.readAsText(file);
@@ -1406,7 +1406,7 @@ function resetAllData(){
   applyTheme();
   studySession = null;
   navigateTo('decks', {}, { replace: true });
-  showToast('Todos os dados foram apagados');
+  showToast('All data has been deleted');
 }
 
 /* ===================================================================
@@ -1445,7 +1445,7 @@ function showDialog(opts){
     html += `<input type="text" id="dialogInput" placeholder="${escapeHtml(opts.inputPlaceholder)}" value="${escapeHtml(opts.inputValue || '')}">`;
   }
   html += `<div class="dialog-actions">
-    <button class="btn btn-secondary" id="dialogCancel">${escapeHtml(opts.cancelText || 'Cancelar')}</button>
+    <button class="btn btn-secondary" id="dialogCancel">${escapeHtml(opts.cancelText || 'Cancel')}</button>
     <button class="btn ${opts.danger ? 'btn-danger' : 'btn-primary'}" id="dialogConfirm">${escapeHtml(opts.confirmText || 'OK')}</button>
   </div>`;
   box.innerHTML = html;
@@ -1479,8 +1479,8 @@ function confirmDialog(opts){
   showDialog({
     title: opts.title,
     message: opts.message,
-    confirmText: opts.confirmText || 'Confirmar',
-    cancelText: opts.cancelText || 'Cancelar',
+    confirmText: opts.confirmText || 'Confirm',
+    cancelText: opts.cancelText || 'Cancel',
     danger: opts.danger,
     onConfirm: opts.onConfirm,
     onCancel: opts.onCancel
@@ -1505,7 +1505,7 @@ document.getElementById('btnStudyDeck').addEventListener('click', () => {
   const deck = getDeck(nav.context.deckId);
   if(!deck) return;
   if(getDueCards(deck.id).length === 0){
-    showToast('Nenhum cartão para revisar agora');
+    showToast('No cards to review right now');
     return;
   }
   navigateTo('study', { deckId: deck.id });
@@ -1515,10 +1515,10 @@ document.getElementById('btnRenameDeck').addEventListener('click', () => {
   const deck = getDeck(nav.context.deckId);
   if(!deck) return;
   showDialog({
-    title: 'Renomear baralho',
-    inputPlaceholder: 'Nome do baralho',
+    title: 'Rename deck',
+    inputPlaceholder: 'Deck name',
     inputValue: deck.name,
-    confirmText: 'Salvar',
+    confirmText: 'Save',
     onConfirm: (value) => {
       if(!value || !value.trim()) return;
       renameDeck(deck.id, value);
@@ -1531,14 +1531,14 @@ document.getElementById('btnDeleteDeck').addEventListener('click', () => {
   const deck = getDeck(nav.context.deckId);
   if(!deck) return;
   confirmDialog({
-    title: `Excluir "${deck.name}"?`,
-    message: 'Todos os cartões deste baralho serão excluídos permanentemente.',
-    confirmText: 'Excluir',
+    title: `Delete "${deck.name}"?`,
+    message: 'All cards in this deck will be permanently deleted.',
+    confirmText: 'Delete',
     danger: true,
     onConfirm: () => {
       deleteDeck(deck.id);
       navigateTo('decks', {}, { replace: true });
-      showToast('Baralho excluído');
+      showToast('Deck deleted');
     }
   });
 });
@@ -1602,9 +1602,9 @@ document.getElementById('importFileInput').addEventListener('change', (e) => {
 
 document.getElementById('btnResetData').addEventListener('click', () => {
   confirmDialog({
-    title: 'Apagar todos os dados?',
-    message: 'Isso removerá todos os baralhos, cartões e configurações permanentemente.',
-    confirmText: 'Apagar tudo',
+    title: 'Delete all data?',
+    message: 'This will permanently remove all decks, cards, and settings.',
+    confirmText: 'Delete all',
     danger: true,
     onConfirm: resetAllData
   });
