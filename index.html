@@ -421,7 +421,7 @@ body{
 
 .segmented{display:flex; background:var(--surface-2); border-radius:999px; padding:3px;}
 .segmented button{
-  flex:1; border:none; background:transparent; padding:8px 10px; border-radius:999px; font-family:inherit;
+  flex:1; border:none; background:transparent; padding:8px 6px; border-radius:999px; font-family:inherit;
   font-size:0.82rem; font-weight:600; color:var(--text-secondary); cursor:pointer; transition:.2s;
 }
 .segmented button.active{background:var(--accent); color:#fff;}
@@ -537,6 +537,7 @@ a{color:var(--accent);}
                 <div class="audio-row">
                   <button class="audio-btn" id="btnPlayAudio" aria-label="Listen">🔊</button>
                   <select class="speed-select" id="studySpeed">
+                    <option value="0.5">0.5x</option>
                     <option value="0.75">0.75x</option>
                     <option value="1" selected>1.0x</option>
                     <option value="1.25">1.25x</option>
@@ -581,6 +582,7 @@ a{color:var(--accent);}
           <div>
             <div class="row-text" style="margin-bottom:8px;"><h4>Default speed</h4><p>Audio playback speed</p></div>
             <div class="segmented" id="speedSegment">
+              <button data-speed="0.5">0.5x</button>
               <button data-speed="0.75">0.75x</button>
               <button data-speed="1" class="active">1.0x</button>
               <button data-speed="1.25">1.25x</button>
