@@ -1363,8 +1363,9 @@ function playTTS(text, btnEl, speed){
 
   const synth = window.speechSynthesis;
 
-  /* iOS fix: cancel any ongoing speech, resume if paused */
-  synth.cancel();
+  /* Stop anything currently playing */
+  if(synth.speaking || synth.pending) synth.cancel();
+  /* iOS: resume if engine got paused (e.g. after app went to background) */
   if(synth.paused) synth.resume();
 
   const utterance = new SpeechSynthesisUtterance(text);
@@ -1378,11 +1379,11 @@ function playTTS(text, btnEl, speed){
   utterance.onerror = (e) => {
     console.warn('TTS error', e);
     if(btnEl) btnEl.classList.remove('loading');
+    showToast('Audio error — try again');
   };
 
-  /* iOS Safari bug: calling speak() immediately after cancel() silently drops
-     the utterance. A short delay gives the engine time to reset. */
-  setTimeout(() => synth.speak(utterance), 50);
+  /* Must be called synchronously inside the user gesture handler on iOS */
+  synth.speak(utterance);
 }
 
 /* ===================================================================
