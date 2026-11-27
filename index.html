@@ -1334,6 +1334,18 @@ function rateCurrentCard(rating){
 /* ===================================================================
    AUDIO (WEB SPEECH API)
    =================================================================== */
+/* iOS PWA fix: keep the speech synthesis engine alive.
+   Without this, the engine silently freezes after a few seconds
+   and all utterances are immediately canceled. */
+if('speechSynthesis' in window){
+  setInterval(() => {
+    if(!window.speechSynthesis.speaking){
+      window.speechSynthesis.pause();
+      window.speechSynthesis.resume();
+    }
+  }, 5000);
+}
+
 /** Speaks `text` using the browser's Web Speech API. */
 function playTTS(text, btnEl, speed){
   text = (text || '').trim();
@@ -1358,7 +1370,11 @@ function playTTS(text, btnEl, speed){
     showToast('Audio error: ' + (e.error || 'unknown'));
   };
 
+  /* iOS PWA bug: speak() queues the utterance but the engine stays frozen.
+     Calling pause()+resume() immediately after forces iOS to start playing. */
   synth.speak(utterance);
+  synth.pause();
+  synth.resume();
 }
 
 /* ===================================================================
