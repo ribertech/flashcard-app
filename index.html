@@ -1334,10 +1334,17 @@ function rateCurrentCard(rating){
 /* ===================================================================
    AUDIO (WEB SPEECH API)
    =================================================================== */
+/* Pre-load voices on page load (iOS loads them async) */
+if('speechSynthesis' in window){
+  window.speechSynthesis.getVoices();
+  window.speechSynthesis.addEventListener('voiceschanged', () => window.speechSynthesis.getVoices());
+}
+
 function pickEnglishVoice(){
   const voices = window.speechSynthesis.getVoices();
   return voices.find(v => v.lang === 'en-US' && v.name.includes('Google'))
-    || voices.find(v => v.lang === 'en-US')
+    || voices.find(v => v.lang.startsWith('en-US'))
+    || voices.find(v => v.lang.startsWith('en'))
     || null;
 }
 
@@ -1345,7 +1352,7 @@ function pickEnglishVoice(){
 function playTTS(text, btnEl, speed){
   text = (text || '').trim();
   if(!text){
-    showToast('Nada para reproduzir');
+    showToast('Nothing to play');
     return;
   }
   if(!('speechSynthesis' in window)){
@@ -1354,7 +1361,11 @@ function playTTS(text, btnEl, speed){
   }
   speed = speed || DATA.settings.audioSpeed || 1;
 
-  window.speechSynthesis.cancel();
+  const synth = window.speechSynthesis;
+
+  /* iOS fix: cancel any ongoing speech, resume if paused */
+  synth.cancel();
+  if(synth.paused) synth.resume();
 
   const utterance = new SpeechSynthesisUtterance(text);
   utterance.lang = 'en-US';
@@ -1363,10 +1374,15 @@ function playTTS(text, btnEl, speed){
   if(voice) utterance.voice = voice;
 
   if(btnEl) btnEl.classList.add('loading');
-  utterance.onend = () => { if(btnEl) btnEl.classList.remove('loading'); };
-  utterance.onerror = () => { if(btnEl) btnEl.classList.remove('loading'); };
+  utterance.onend  = () => { if(btnEl) btnEl.classList.remove('loading'); };
+  utterance.onerror = (e) => {
+    console.warn('TTS error', e);
+    if(btnEl) btnEl.classList.remove('loading');
+  };
 
-  window.speechSynthesis.speak(utterance);
+  /* iOS Safari bug: calling speak() immediately after cancel() silently drops
+     the utterance. A short delay gives the engine time to reset. */
+  setTimeout(() => synth.speak(utterance), 50);
 }
 
 /* ===================================================================
