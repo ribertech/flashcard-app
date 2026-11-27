@@ -1345,13 +1345,10 @@ function playTTS(text, btnEl, speed){
   speed = parseFloat(speed) || DATA.settings.audioSpeed || 1;
 
   const synth = window.speechSynthesis;
-  if(synth.speaking) synth.cancel();
 
   const utterance = new SpeechSynthesisUtterance(text);
   utterance.lang = 'en-US';
   utterance.rate = speed;
-  /* Do NOT force a specific voice — iOS 17/18 throws errors when a voice
-     object is set explicitly in standalone PWA mode. Let the OS pick. */
 
   if(btnEl) btnEl.classList.add('loading');
   utterance.onend  = () => { if(btnEl) btnEl.classList.remove('loading'); };
