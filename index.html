@@ -1334,55 +1334,33 @@ function rateCurrentCard(rating){
 /* ===================================================================
    AUDIO (WEB SPEECH API)
    =================================================================== */
-/* Pre-load voices on page load (iOS loads them async) */
-if('speechSynthesis' in window){
-  window.speechSynthesis.getVoices();
-  window.speechSynthesis.addEventListener('voiceschanged', () => window.speechSynthesis.getVoices());
-}
-
-function pickEnglishVoice(){
-  const voices = window.speechSynthesis.getVoices();
-  return voices.find(v => v.lang === 'en-US' && v.name.includes('Google'))
-    || voices.find(v => v.lang.startsWith('en-US'))
-    || voices.find(v => v.lang.startsWith('en'))
-    || null;
-}
-
-/** Speaks `text` using the browser's Web Speech API (en-US voice). */
+/** Speaks `text` using the browser's Web Speech API. */
 function playTTS(text, btnEl, speed){
   text = (text || '').trim();
-  if(!text){
-    showToast('Nothing to play');
-    return;
-  }
+  if(!text){ showToast('Nothing to play'); return; }
   if(!('speechSynthesis' in window)){
     showToast('Speech synthesis not supported in this browser');
     return;
   }
-  speed = speed || DATA.settings.audioSpeed || 1;
+  speed = parseFloat(speed) || DATA.settings.audioSpeed || 1;
 
   const synth = window.speechSynthesis;
-
-  /* Stop anything currently playing */
-  if(synth.speaking || synth.pending) synth.cancel();
-  /* iOS: resume if engine got paused (e.g. after app went to background) */
-  if(synth.paused) synth.resume();
+  if(synth.speaking) synth.cancel();
 
   const utterance = new SpeechSynthesisUtterance(text);
   utterance.lang = 'en-US';
   utterance.rate = speed;
-  const voice = pickEnglishVoice();
-  if(voice) utterance.voice = voice;
+  /* Do NOT force a specific voice — iOS 17/18 throws errors when a voice
+     object is set explicitly in standalone PWA mode. Let the OS pick. */
 
   if(btnEl) btnEl.classList.add('loading');
   utterance.onend  = () => { if(btnEl) btnEl.classList.remove('loading'); };
   utterance.onerror = (e) => {
-    console.warn('TTS error', e);
+    console.warn('TTS error:', e.error);
     if(btnEl) btnEl.classList.remove('loading');
-    showToast('Audio error — try again');
+    showToast('Audio error: ' + (e.error || 'unknown'));
   };
 
-  /* Must be called synchronously inside the user gesture handler on iOS */
   synth.speak(utterance);
 }
 
